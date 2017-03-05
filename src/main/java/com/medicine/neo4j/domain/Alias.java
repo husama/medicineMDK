@@ -21,7 +21,7 @@ public class Alias {
     }
 
     public Alias(String name){
-        this();
+        this(); //lalala
         this.name=name;
     }
 
