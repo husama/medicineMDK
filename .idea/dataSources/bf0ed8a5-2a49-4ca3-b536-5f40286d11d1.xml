@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="raw_data@123.206.24.47">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.0">
+    <root id="1"/>
+    <schema id="2" parent="1" name="raw_data">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="information_schema"/>
+    <schema id="4" parent="1" name="mysql"/>
+    <schema id="5" parent="1" name="performance_schema"/>
+    <table id="6" parent="2" name="answer">
+      <Comment>回答表</Comment>
+    </table>
+    <table id="7" parent="2" name="ask">
+      <Comment>提问表</Comment>
+    </table>
+    <table id="8" parent="2" name="doctor">
+      <Comment>医生表</Comment>
+    </table>
+    <table id="9" parent="2" name="question">
+      <Comment>问题表</Comment>
+    </table>
+    <table id="10" parent="2" name="spq_answer">
+      <Comment>追问追答表与回答表的关系表</Comment>
+    </table>
+    <table id="11" parent="2" name="supplement_question">
+      <Comment>追问追答表 sign为0是提问 sign是1是回答</Comment>
+    </table>
+    <routine id="12" parent="2" name="getChildLst">
+      <RoutineKind>function</RoutineKind>
+    </routine>
+    <column id="13" parent="6" name="ans_id">
+      <Position>1</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="14" parent="6" name="ans_analyze">
+      <Position>2</Position>
+      <Comment>回答描述</Comment>
+      <DataType>varchar(3000)|0</DataType>
+    </column>
+    <column id="15" parent="6" name="ans_suggestion">
+      <Position>3</Position>
+      <Comment>回答建议</Comment>
+      <DataType>varchar(3000)|0</DataType>
+    </column>
+    <column id="16" parent="6" name="ans_time">
+      <Position>4</Position>
+      <Comment>回答时间</Comment>
+      <DataType>varchar(45)|0</DataType>
+    </column>
+    <column id="17" parent="6" name="doctor_id">
+      <Position>5</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="18" parent="6" name="answer_doctor_fk_idx">
+      <ColNames>doctor_id</ColNames>
+    </index>
+    <key id="19" parent="6" name="PRIMARY">
+      <ColNames>ans_id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="20" parent="6" name="answer_doctor_fk">
+      <ColNames>doctor_id</ColNames>
+      <RefSchemaName>raw_data</RefSchemaName>
+      <RefTableName>doctor</RefTableName>
+      <RefColNames>doctor_id</RefColNames>
+    </foreign-key>
+    <column id="21" parent="7" name="ask_id">
+      <Position>1</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="22" parent="7" name="ask_classify">
+      <Position>2</Position>
+      <Comment>问题的分类,eg:( 外科/神经外科)</Comment>
+      <DataType>varchar(45)|0</DataType>
+    </column>
+    <column id="23" parent="7" name="ask_desc">
+      <Position>3</Position>
+      <Comment>问题描述</Comment>
+      <DataType>varchar(2000)|0</DataType>
+    </column>
+    <column id="24" parent="7" name="ask_help">
+      <Position>4</Position>
+      <Comment>寻求的帮助</Comment>
+      <DataType>varchar(1000)|0</DataType>
+    </column>
+    <column id="25" parent="7" name="sex">
+      <Position>5</Position>
+      <Comment>提问者的以性别 输入值 男or 女</Comment>
+      <DataType>enum(&apos;男&apos;, &apos;女&apos;)|0</DataType>
+    </column>
+    <column id="26" parent="7" name="age">
+      <Position>6</Position>
+      <Comment>提问者年龄</Comment>
+      <DataType>int(10) unsigned|0</DataType>
+    </column>
+    <column id="27" parent="7" name="adress">
+      <Position>7</Position>
+      <DataType>varchar(45)|0</DataType>
+    </column>
+    <key id="28" parent="7" name="PRIMARY">
+      <ColNames>ask_id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <trigger id="29" parent="7" name="ask_BEFORE_INSERT">
+      <Turn>before-row</Turn>
+      <Events>I</Events>
+    </trigger>
+    <column id="30" parent="8" name="doctor_id">
+      <Position>1</Position>
+      <DataType>int(11) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="31" parent="8" name="doctor_name">
+      <Position>2</Position>
+      <DataType>varchar(45)|0</DataType>
+    </column>
+    <column id="32" parent="8" name="position">
+      <Position>3</Position>
+      <Comment>职位</Comment>
+      <DataType>varchar(45)|0</DataType>
+    </column>
+    <column id="33" parent="8" name="hospital">
+      <Position>4</Position>
+      <Comment>所在医院</Comment>
+      <DataType>varchar(45)|0</DataType>
+    </column>
+    <column id="34" parent="8" name="job">
+      <Position>5</Position>
+      <Comment>所在科室</Comment>
+      <DataType>varchar(45)|0</DataType>
+    </column>
+    <column id="35" parent="8" name="jointime">
+      <Position>6</Position>
+      <Comment>入职时间</Comment>
+      <DataType>varchar(45)|0</DataType>
+    </column>
+    <column id="36" parent="8" name="adept">
+      <Position>7</Position>
+      <Comment>擅长</Comment>
+      <DataType>varchar(300)|0</DataType>
+    </column>
+    <column id="37" parent="8" name="introduce">
+      <Position>8</Position>
+      <Comment>简介</Comment>
+      <DataType>varchar(600)|0</DataType>
+    </column>
+    <column id="38" parent="8" name="helpnum">
+      <Position>9</Position>
+      <Comment>帮助人数</Comment>
+      <DataType>int(10) unsigned|0</DataType>
+    </column>
+    <column id="39" parent="8" name="adoptrate">
+      <Position>10</Position>
+      <Comment>采纳率</Comment>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="40" parent="8" name="satisfatdegree">
+      <Position>11</Position>
+      <Comment>满意度</Comment>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <key id="41" parent="8" name="PRIMARY">
+      <ColNames>doctor_id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <trigger id="42" parent="8" name="doctor_BEFORE_INSERT">
+      <Turn>before-row</Turn>
+      <Events>I</Events>
+    </trigger>
+    <column id="43" parent="9" name="ask_id">
+      <Position>1</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="44" parent="9" name="ans_id">
+      <Position>2</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="45" parent="9" name="isadopt">
+      <Position>3</Position>
+      <Comment>是否采纳 0是未采纳 1是采纳</Comment>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="46" parent="9" name="question_answer_fk_idx">
+      <ColNames>ans_id</ColNames>
+    </index>
+    <key id="47" parent="9" name="PRIMARY">
+      <ColNames>ask_id
+ans_id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="48" parent="9" name="question_ask_fk">
+      <ColNames>ask_id</ColNames>
+      <RefSchemaName>raw_data</RefSchemaName>
+      <RefTableName>ask</RefTableName>
+      <RefColNames>ask_id</RefColNames>
+    </foreign-key>
+    <foreign-key id="49" parent="9" name="question_answer_fk">
+      <ColNames>ans_id</ColNames>
+      <RefSchemaName>raw_data</RefSchemaName>
+      <RefTableName>answer</RefTableName>
+      <RefColNames>ans_id</RefColNames>
+    </foreign-key>
+    <trigger id="50" parent="9" name="question_BEFORE_INSERT">
+      <Turn>before-row</Turn>
+      <Events>I</Events>
+    </trigger>
+    <column id="51" parent="10" name="ans_id">
+      <Position>1</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="52" parent="10" name="spq_id">
+      <Position>2</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="53" parent="10" name="spq_fk_idx">
+      <ColNames>spq_id</ColNames>
+    </index>
+    <key id="54" parent="10" name="PRIMARY">
+      <ColNames>ans_id
+spq_id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="55" parent="10" name="spq_ans_fk1">
+      <ColNames>ans_id</ColNames>
+      <RefSchemaName>raw_data</RefSchemaName>
+      <RefTableName>answer</RefTableName>
+      <RefColNames>ans_id</RefColNames>
+    </foreign-key>
+    <foreign-key id="56" parent="10" name="spq_ans_fk2">
+      <ColNames>spq_id</ColNames>
+      <RefSchemaName>raw_data</RefSchemaName>
+      <RefTableName>supplement_question</RefTableName>
+      <RefColNames>spq_id</RefColNames>
+    </foreign-key>
+    <column id="57" parent="11" name="spq_id">
+      <Position>1</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="58" parent="11" name="spq_answer">
+      <Position>2</Position>
+      <DataType>varchar(2000)|0</DataType>
+    </column>
+    <column id="59" parent="11" name="sign">
+      <Position>3</Position>
+      <Comment>sign为0是提问 sign是1是回答 非空</Comment>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="60" parent="11" name="spq_fk">
+      <Position>4</Position>
+      <DataType>int(10) unsigned|0</DataType>
+    </column>
+    <index id="61" parent="11" name="spq_fk_idx">
+      <ColNames>spq_fk</ColNames>
+    </index>
+    <key id="62" parent="11" name="PRIMARY">
+      <ColNames>spq_id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="63" parent="11" name="supplement_answer_fk">
+      <ColNames>spq_fk</ColNames>
+      <RefSchemaName>raw_data</RefSchemaName>
+      <RefTableName>supplement_question</RefTableName>
+      <RefColNames>spq_id</RefColNames>
+      <OnUpdate>update</OnUpdate>
+      <OnDelete>delete</OnDelete>
+    </foreign-key>
+    <trigger id="64" parent="11" name="supplement_question_BEFORE_INSERT">
+      <Turn>before-row</Turn>
+      <Events>I</Events>
+    </trigger>
+    <argument id="65" parent="12">
+      <ArgumentDirection>R</ArgumentDirection>
+      <DataType>varchar(1000)|0</DataType>
+    </argument>
+    <argument id="66" parent="12" name="rootId">
+      <DataType>int(11)|0</DataType>
+    </argument>
+  </database-model>
+</dataSource>
