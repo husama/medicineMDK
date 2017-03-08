@@ -11,13 +11,12 @@ import java.util.Set;
 public class Alias {
     @GraphId
     Long id;
-    String name;
+    private String name;
 
     @Relationship(type="IS_ALIAS_OF", direction = Relationship.INCOMING)
-    Set<Disease> diseases;
+    Set<IsAliasOf> isAliasOfs=new HashSet<IsAliasOf>();
 
     public Alias(){
-        diseases=new HashSet<Disease>();
     }
 
     public Alias(String name){
@@ -41,12 +40,14 @@ public class Alias {
         this.name = name;
     }
 
-    public Set<Disease> getDiseases() {
-        return diseases;
+    @Relationship(type="IS_ALIAS_OF", direction = Relationship.INCOMING)
+    public Set<IsAliasOf> getIsAliasOfs() {
+        return isAliasOfs;
     }
 
-    public void setDiseases(Set<Disease> diseases) {
-        this.diseases = diseases;
+    @Relationship(type="IS_ALIAS_OF", direction = Relationship.INCOMING)
+    public void setIsAliasOfs(Set<IsAliasOf> isAliasOfs) {
+        this.isAliasOfs = isAliasOfs;
     }
 
     @Override

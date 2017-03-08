@@ -12,19 +12,16 @@ public class Disease {
     @GraphId
     Long id;
 
-    String name;
+    private String name;
 
     @Relationship(type="APPEAR", direction = Relationship.OUTGOING)
-    Set<Symptom> symptoms;
+    Set<Appear> appears=new HashSet<Appear>();
     @Relationship(type="TREAT", direction = Relationship.OUTGOING)
-    Set<Treatment> treatments;
+    Set<Treat> treats=new HashSet<Treat>();
     @Relationship(type="IS_ALIAS_OF", direction = Relationship.OUTGOING)
-    Set<Alias> aliases;
+    Set<IsAliasOf> isAliasOfs=new HashSet<IsAliasOf>();
 
     public Disease(){
-        symptoms=new HashSet<Symptom>();
-        treatments=new HashSet<Treatment>();
-        aliases=new HashSet<Alias>();
     }
 
     public Disease(String name){
@@ -32,16 +29,41 @@ public class Disease {
         this.name=name;
     }
 
-    public void addSymptom(String name){
-        symptoms.add(new Symptom(name));
+    public void addIsAliasOf(IsAliasOf isAliasOf){
+        isAliasOfs.add(isAliasOf);
+    }
+    public  void addIsAliasOf(String name){
+        isAliasOfs.add(new IsAliasOf(this,new Alias(name),1));
     }
 
-    public void addTreatment(String name){
-        treatments.add(new Treatment(name));
+    public void addAppear(Appear appear){
+        appears.add(appear);
+    }
+    public void addAppear(String name){
+        appears.add(new Appear(this,new Symptom(name),1));
     }
 
-    public void addAlias(String name){
-        aliases.add(new Alias(name));
+    public void addTreat(Treat treat){
+        treats.add(treat);
+    }
+    public void addTreat(String name){
+        treats.add(new Treat(this,new Treatment(name),1));
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Disease disease = (Disease) o;
+
+        return name != null ? name.equals(disease.name) : disease.name == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return name != null ? name.hashCode() : 0;
     }
 
     public Long getId() {
@@ -60,27 +82,33 @@ public class Disease {
         this.name = name;
     }
 
-    public Set<Symptom> getSymptoms() {
-        return symptoms;
+    @Relationship(type="APPEAR", direction = Relationship.OUTGOING)
+    public Set<Appear> getAppears() {
+        return appears;
     }
 
-    public void setSymptoms(Set<Symptom> symptoms) {
-        this.symptoms = symptoms;
+    @Relationship(type="APPEAR", direction = Relationship.OUTGOING)
+    public void setAppears(Set<Appear> appears) {
+        this.appears = appears;
     }
 
-    public Set<Treatment> getTreatments() {
-        return treatments;
+    @Relationship(type="TREAT", direction = Relationship.OUTGOING)
+    public Set<Treat> getTreats() {
+        return treats;
     }
 
-    public void setTreatments(Set<Treatment> treatments) {
-        this.treatments = treatments;
+    @Relationship(type="TREAT", direction = Relationship.OUTGOING)
+    public void setTreats(Set<Treat> treats) {
+        this.treats = treats;
     }
 
-    public Set<Alias> getAliases() {
-        return aliases;
+    @Relationship(type="IS_ALIAS_OF", direction = Relationship.OUTGOING)
+    public Set<IsAliasOf> getIsAliasOfs() {
+        return isAliasOfs;
     }
 
-    public void setAliases(Set<Alias> aliases) {
-        this.aliases = aliases;
+    @Relationship(type="IS_ALIAS_OF", direction = Relationship.OUTGOING)
+    public void setIsAliasOfs(Set<IsAliasOf> isAliasOfs) {
+        this.isAliasOfs = isAliasOfs;
     }
 }

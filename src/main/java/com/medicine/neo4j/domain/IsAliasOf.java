@@ -5,32 +5,34 @@ import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.RelationshipEntity;
 import org.neo4j.ogm.annotation.StartNode;
 
-@RelationshipEntity(type="IS_AlIAS_OF")
+@RelationshipEntity(type="IS_ALIAS_OF")
 public class IsAliasOf {
     @GraphId
-    long relationshipId;
+    Long id;
     @StartNode
     Disease disease;
     @EndNode
     Alias alias;
 
-    int weight;//权值
+    private int weight;//权值
 
     public IsAliasOf(){
         weight=0;
     }
 
-    public IsAliasOf(int weight){
+    public IsAliasOf(Disease disease,Alias alias,int weight){
         this();
-        this.weight=weight;
+        this.disease=disease;
+        this.alias=alias;
+        this.weight+=weight;
     }
 
-    public long getRelationshipId() {
-        return relationshipId;
+    public Long getId() {
+        return id;
     }
 
-    public void setRelationshipId(long relationshipId) {
-        this.relationshipId = relationshipId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Disease getDisease() {

@@ -11,17 +11,24 @@ import java.util.Set;
 public class Symptom {
     @GraphId
     Long id;
-    String name;
+    private String name;
 
     @Relationship(type="APPEAR", direction = Relationship.INCOMING)
-    Set<Disease> diseases;
+    Set<Appear> appears;
     public Symptom(){
-        diseases=new HashSet<Disease>();
+        appears=new HashSet<Appear>();
     }
 
     public Symptom(String name){
         this();
         this.name=name;
+    }
+
+    public Appear relate(Disease disease,int weight) {
+        Appear appear = new Appear(disease, this, 1);
+        appears.add(appear);
+        disease.addAppear(appear);
+        return appear;
     }
 
     public Long getId() {
@@ -40,12 +47,14 @@ public class Symptom {
         this.name = name;
     }
 
-    public Set<Disease> getDiseases() {
-        return diseases;
+    @Relationship(type="APPEAR", direction = Relationship.INCOMING)
+    public Set<Appear> getAppears() {
+        return appears;
     }
 
-    public void setDiseases(Set<Disease> diseases) {
-        this.diseases = diseases;
+    @Relationship(type="APPEAR", direction = Relationship.INCOMING)
+    public void setAppears(Set<Appear> appears) {
+        this.appears = appears;
     }
 
     @Override

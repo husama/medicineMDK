@@ -8,29 +8,31 @@ import org.neo4j.ogm.annotation.StartNode;
 @RelationshipEntity(type="TREAT")
 public class Treat {
     @GraphId
-    long relationshipId;
+    Long id;
     @StartNode
     Disease disease;
     @EndNode
     Treatment treatment;
 
-    int weight;//权值
+    private int weight;//权值
 
     public Treat(){
         weight=0;
     }
 
-    public Treat(int weight){
+    public Treat(Disease disease,Treatment treatment,int weight){
         this();
-        this.weight=weight;
+        this.disease=disease;
+        this.treatment=treatment;
+        this.weight+=weight;
     }
 
-    public long getRelationshipId() {
-        return relationshipId;
+    public Long getId() {
+        return id;
     }
 
-    public void setRelationshipId(long relationshipId) {
-        this.relationshipId = relationshipId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Disease getDisease() {

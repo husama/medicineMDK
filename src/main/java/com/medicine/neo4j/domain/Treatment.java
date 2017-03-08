@@ -11,13 +11,13 @@ import java.util.Set;
 public class Treatment {
     @GraphId
     Long id;
-    String name;
+    private String name;
 
     @Relationship(type="TREAT", direction = Relationship.INCOMING)
-    Set<Disease> diseases;
+    Set<Treat> treats=new HashSet<Treat>();
 
     public Treatment(){
-        diseases=new HashSet<Disease>();
+
     }
 
     public Treatment(String name){
@@ -41,12 +41,14 @@ public class Treatment {
         this.name = name;
     }
 
-    public Set<Disease> getDiseases() {
-        return diseases;
+    @Relationship(type="APPEAR", direction = Relationship.INCOMING)
+    public Set<Treat> getTreats() {
+        return treats;
     }
 
-    public void setDiseases(Set<Disease> diseases) {
-        this.diseases = diseases;
+    @Relationship(type="APPEAR", direction = Relationship.INCOMING)
+    public void setTreats(Set<Treat> treats) {
+        this.treats = treats;
     }
 
     @Override

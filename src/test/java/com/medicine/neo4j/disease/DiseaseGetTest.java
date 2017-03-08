@@ -2,27 +2,26 @@ package com.medicine.neo4j.disease;
 
 import com.medicine.neo4j.domain.*;
 import com.medicine.neo4j.service.DiseaseService;
-import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Iterator;
 
 @RunWith(SpringJUnit4ClassRunner.class)		//表示继承了SpringJUnit4ClassRunner类
 @ContextConfiguration(classes = {com.medicine.neo4j.MyConfiguration.class,com.medicine.neo4j.service.impl.DiseaseServiceImpl.class
         ,com.medicine.neo4j.dao.DiseaseRepository.class})
 public class DiseaseGetTest {
-    private static Logger logger = Logger.getLogger(com.medicine.neo4j.NeoTest.class);
+  //  private static Logger logger = Logger.getLogger(com.medicine.neo4j.NeoTest.class);
     @Autowired
     DiseaseService diseaseService;
 
     @Test
     public void test1() {
-        Disease disease=new Disease();
+
+       /* Disease disease=new Disease();
         Symptom symptom=new Symptom();
         Symptom symptom1=new Symptom();
         Treatment treatment=new Treatment();
@@ -45,16 +44,22 @@ public class DiseaseGetTest {
         disease.setAliases(aliases);
         disease.setSymptoms(symptoms);
         disease.setTreatments(treatments);
-
+        */
         Disease temp=diseaseService.findDiseaseByName("发烧");
-        for (Symptom s : temp.getSymptoms()) {
-                System.out.println("症状:"+s.getName()+"   "+s.getId());
+        Iterator it=temp.getAppears().iterator();
+        while(it.hasNext()) {
+                Symptom symptom=((Appear) it.next()).getSymptom();
+                System.out.println("症状:"+symptom.getName()+"   "+symptom.getId());
           }
-        for(Treatment t: temp.getTreatments()){
-               System.out.println("治疗:"+t.getName()+"   "+t.getId());
+        it=temp.getTreats().iterator();
+        while(it.hasNext()){
+               Treatment treatment=((Treat)it.next()).getTreatment();
+               System.out.println("治疗:"+treatment.getName()+"   "+treatment.getId());
         }
-        for(Alias a: temp.getAliases()){
-            System.out.println("别名:"+a.getName()+"    "+a.getId());
+        it=temp.getIsAliasOfs().iterator();
+        while(it.hasNext()){
+            Alias alias=((IsAliasOf)it.next()).getAlias();
+            System.out.println("别名:"+alias.getName()+"    "+alias.getId());
         }
         //  System.out.println("GoogleProfile created successfully.");
     }
